@@ -1,5 +1,6 @@
 package com.hexagon.studentservice.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hexagon.studentservice.service.StudentServiceImpl;
 import com.hexagon.studentservice.entity.Student;
 //import io.swagger.annotations.ApiOperation;
@@ -16,7 +17,7 @@ public class StudentController {
 
 //    @ApiOperation(value = "Get example data", notes = "This endpoint returns example data")
     @GetMapping("/{id}")
-    public ResponseEntity<?> fetchStudentById(@PathVariable Long id){
+    public ResponseEntity<?> fetchStudentById(@PathVariable Long id) throws JsonProcessingException {
         return studentService.getById(id);
     }
 

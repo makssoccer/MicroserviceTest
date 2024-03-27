@@ -25,4 +25,6 @@ public class Student {
     private String gender;
     @Column(name = "school_id")
     private Integer schoolId;
+    @Column(name = "teacher_id")
+    private Integer teacherId;
 }
