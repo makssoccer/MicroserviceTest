@@ -17,7 +17,7 @@ public class StudentController {
 
 //    @ApiOperation(value = "Get example data", notes = "This endpoint returns example data")
     @GetMapping("/{id}")
-    public ResponseEntity<?> fetchStudentById(@PathVariable Long id) throws JsonProcessingException {
+    public ResponseEntity<?> fetchStudentById(@PathVariable Long id) {
         return studentService.getById(id);
     }
 

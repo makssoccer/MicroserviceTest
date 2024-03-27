@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -25,6 +27,7 @@ public class Student {
     private String gender;
     @Column(name = "school_id")
     private Integer schoolId;
-    @Column(name = "teacher_id")
-    private Integer teacherId;
+    @Transient
+    private List<Integer> teacherId;
+
 }
