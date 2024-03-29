@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet author="developer" id="create employee table">
+        <createTable tableName="teacher">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="actor_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(150)"/>
+            <column name="age" type="INTEGER"/>
+            <column name="direction" type="VARCHAR(150)"/>
+            <column name="salary" type="INTEGER"/>
+            <column name="school_id" type="INTEGER"/>
+        </createTable>
+        <createTable tableName="student">
+            <column autoIncrement="false" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="school_pkey"/>
+            </column>
+        </createTable>
+        <createTable tableName="teacher_student">
+            <column name="student_id" type="BIGINT"/>
+            <column name="teacher_id" type="INTEGER"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="teacher_student" baseColumnNames="student_id"
+                                 constraintName="student_id_teacher" referencedTableName="student"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="teacher_student" baseColumnNames="teacher_id"
+                                 constraintName="teacher_id_student" referencedTableName="teacher"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet author="developer" id="add director">
+        <sql>insert into teacher (id, name, age, direction, salary, school_id)
+             values (1, 'Иванов Иван Иваныч', 40, 'Математика', 45000, 1);</sql>
+        <sql>insert into student (id)
+             values (1);</sql>
+    </changeSet>
+
+</databaseChangeLog>

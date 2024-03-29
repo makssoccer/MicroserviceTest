@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hexagon.studentservice.controller.StudentController;
 import com.hexagon.studentservice.dto.StudentResponse;
 import com.hexagon.studentservice.entity.Student;
-import com.hexagon.studentservice.service.StudentServiceImpl;
+import com.hexagon.studentservice.service.StudentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,38 +26,35 @@ import java.util.List;
 @WebMvcTest(StudentController.class)
 public class StudentControllerTest {
 
-
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private StudentServiceImpl studentService;
+    private StudentService studentService;
 
     @Test
     public void testFetchStudentById() throws Exception {
-        // Подготовка данных для успешного выполнения
         StudentResponse studentResponse = new StudentResponse();
         studentResponse.setId(1L);
         studentResponse.setName("John");
         // Создание ResponseEntity с явным указанием типа подстановки
         ResponseEntity<StudentResponse> responseEntity = new ResponseEntity<>(studentResponse, HttpStatus.OK);
 
-// Мокирование сервиса для успешного выполнения
-//        when(studentService.getById(1L)).thenReturn(responseEntity);
+        // Мокирование сервиса для успешного выполнения
         doReturn(responseEntity).when(studentService).getById(1L);
 
-// Проверка успешного выполнения запроса
+        // Проверка успешного выполнения запроса
         mockMvc.perform(MockMvcRequestBuilders.get("/student/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("John"));
 
-// Подготовка данных для случая, когда студент не найден
+        // Подготовка данных для случая, когда студент не найден
         doReturn(new ResponseEntity<>("No Student Found", HttpStatus.NOT_FOUND)).when(studentService).getById(2L);
 
-// Проверка случая, когда студент не найден
+        // Проверка случая, когда студент не найден
         mockMvc.perform(MockMvcRequestBuilders.get("/student/2")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
@@ -65,17 +62,16 @@ public class StudentControllerTest {
 
     @Test
     public void testFetchStudents() throws Exception {
-        // Prepare test data
         Student student = new Student();
         student.setId(1L);
         student.setName("John");
         ResponseEntity<List<Student>> responseEntity = new ResponseEntity<>(Collections.singletonList(student), HttpStatus.OK);
 
-        // Mock the service method
+        // Мокирование сервиса для успешного выполнения
         doReturn(responseEntity).when(studentService).getAll();
 
 
-        // Perform the GET request
+        // Проверка успешного выполнения запроса
         mockMvc.perform(MockMvcRequestBuilders.get("/student")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())

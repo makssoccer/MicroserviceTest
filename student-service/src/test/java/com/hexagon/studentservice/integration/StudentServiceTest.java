@@ -4,7 +4,7 @@ import com.hexagon.studentservice.dto.StudentResponse;
 import com.hexagon.studentservice.entity.School;
 import com.hexagon.studentservice.entity.Student;
 import com.hexagon.studentservice.repository.StudentRepository;
-import com.hexagon.studentservice.service.StudentServiceImpl;
+import com.hexagon.studentservice.service.StudentService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,13 +24,13 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
-public class StudentServiceImplTest {
+public class StudentServiceTest {
 
     @Mock
     private StudentRepository studentRepository;
 
     @InjectMocks
-    private StudentServiceImpl studentService;
+    private StudentService studentService;
 
     @Mock
     private RestTemplate restTemplate;
