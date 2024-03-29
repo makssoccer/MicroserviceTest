@@ -1,5 +1,7 @@
-package com.hexagon.schoolService;
+package com.hexagon.schoolService.controller;
 
+import com.hexagon.schoolService.entity.School;
+import com.hexagon.schoolService.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,15 +15,17 @@ public class SchoolController {
     private SchoolService schoolService;
 
     @PostMapping
-    public School addSchool(@RequestBody School school){
+    public School addSchool(@RequestBody School school) {
         return schoolService.addSchool(school);
     }
+
     @GetMapping
-    public List<School> fetchSchools(){
-        return  schoolService.fetchSchools();
+    public List<School> fetchSchools() {
+        return schoolService.fetchSchools();
     }
+
     @GetMapping("/{id}")
-    public School fetchSchoolById(@PathVariable int id){
+    public School fetchSchoolById(@PathVariable int id) {
         return schoolService.fetchSchoolById(id);
     }
 }

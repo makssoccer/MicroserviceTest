@@ -1,4 +1,4 @@
-package com.hexagon.schoolService;
+package com.hexagon.schoolService.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

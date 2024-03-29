@@ -4,7 +4,7 @@ import com.hexagon.studentservice.dto.StudentResponse;
 import com.hexagon.studentservice.entity.School;
 import com.hexagon.studentservice.entity.Student;
 import com.hexagon.studentservice.repository.StudentRepository;
-import com.hexagon.studentservice.service.StudentServiceImpl;
+import com.hexagon.studentservice.service.StudentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 
-public class StudentServiceImplTest {
+public class StudentServiceTest {
 
     @Mock
     private StudentRepository studentRepository;
@@ -30,7 +30,7 @@ public class StudentServiceImplTest {
     private RestTemplate restTemplate;
 
     @InjectMocks
-    private StudentServiceImpl studentService;
+    private StudentService studentService;
 
     @BeforeEach
     public void setUp() {
@@ -124,7 +124,6 @@ public class StudentServiceImplTest {
         oldStudent.setSchoolId(1);
 
         when(studentRepository.findById(id)).thenReturn(Optional.of(oldStudent));
-//        when(studentRepository.updateStudent(student.getName(), student.getAge(), student.getGender(), student.getSchoolId(), id)).thenReturn(1);
 
         ResponseEntity<?> response = studentService.update(id, student);
 
