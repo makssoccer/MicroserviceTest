@@ -27,3 +27,15 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: student
+
+  elk:
+    image: sebp/elk:8.11.1
+    ports:
+      - ${ELK_KIBANA_UI_HOST_PORT:-5601}:5601
+      - ${ELK_ELASTIC_JSON_HOST_PORT:-9200}:9200
+      - ${ELK_LOGSTASH_HOST_PORT:-5044}:5044
+      - ${ELK_LOGSTASH_INPUT_HOST_PORT:-5030}:5030
+    env_file: ./elk.env
+    volumes:
+      - ${ELK_KIBANA_CONFIG_VOLUME}:/kibana.yml
+      - ${ELK_LOGSTASH_SERVICES_CONFIG_VOLUMES}:/logstash.conf
